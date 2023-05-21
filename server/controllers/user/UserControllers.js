@@ -87,9 +87,20 @@ const AllUsers = asyncHandler(async (req, res) => {
     res.send(isUsers);
 });
 
+const AuthUser = asyncHandler(async (req, res) => {
+  try {
+    const isUser = await User.findById(req.user._id);
+    if(isUser) {
+      res.status(200).json(isUser);
+    }
+  } catch(e) {
+    res.send({ message: "Error in Fetching user" })
+  }
+});
 
 module.exports = { 
   RegisterUser,
   LoginUser,
-  AllUsers
+  AllUsers,
+  AuthUser
 }
